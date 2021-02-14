@@ -27,3 +27,5 @@ print(f'hiiii {sys.argv[1]} {sys.argv[2]}')
 # python built in 구글 검색하면 standard, 안되면 pypi로 검색
 
 # venv 하위에 파일을 만드는 이유 : 여러 모듈 버전 유지에 좋음
+
+#file setting > project > interpreter에서 모듈 다운 혹은 pip install ~
