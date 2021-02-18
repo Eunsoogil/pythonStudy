@@ -42,5 +42,5 @@ def main(args):
     return 'done!'
 
 
-main(sys.argv[1:])
-
+if __name__ == '__main__':
+    sys.exit(main(sys.argv[1:]))  # sys.exit : 만약 오류로 프로그램이 실행 안될때를 대비
