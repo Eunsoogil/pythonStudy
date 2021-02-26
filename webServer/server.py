@@ -4,7 +4,8 @@
 # pip install Flask
 # d:\pythonstudy\webserver\venv\scripts\python.exe -m pip install --upgrade pip pip 업그레이드 하라고 나옴
 
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request, redirect
+import csv
 
 # cmd : C:\path\to\app>set FLASK_APP=hello.py
 # cmd : python -m flask run 또는 flask run
@@ -13,7 +14,6 @@ from flask import Flask, render_template, url_for
 # mashup에서 universe 템플릿 받음
 
 app = Flask(__name__)
-
 
 # print(__name__)
 
@@ -66,4 +66,32 @@ def hello_world():
 
 @app.route('/<string:page_name>')
 def html_page(page_name):
+    if page_name == 'favicon.ico':
+        return url_for('static', filename='favicon.ico')
     return render_template(page_name)
+
+
+@app.route('/submit_form', methods=['POST', 'GET'])
+def submit_form():
+    if request.method == 'POST':
+        data = request.form.to_dict()  # dictionary data type으로
+        write_to_file(data)
+        return redirect('/thanks.html')
+    else:
+        return redirect('/contact.html')
+
+
+def write_to_file(data):
+    with open('database.txt', mode='a') as database:
+        email = data['email']
+        subject = data['subject']
+        message = data['message']
+        file = database.write(f'\n{email},{subject},{message}')
+
+
+def write_to_csv(data):  # csv : comma separate value
+    with open('database.csv', mode='a') as database2:
+        email = data['email']
+        subject = data['subject']
+        message = data['message']
+        csv_writer = csv.writer(database2, delimiter=',', quotechar='', quoting=csv.QUOTE_MINIMAL)
