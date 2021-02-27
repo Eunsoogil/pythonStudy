@@ -15,6 +15,7 @@ import csv
 
 app = Flask(__name__)
 
+
 # print(__name__)
 
 
@@ -99,6 +100,16 @@ def write_to_csv(data):  # csv : comma separate value
         subject = data['subject']
         message = data['message']
         csv_writer = csv.writer(database2, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
-        csv_writer.writerow([email,subject,message])
+        csv_writer.writerow([email, subject, message])
 
 # pythonanywhere
+# python 파일만 넘기고 pip freeze > requirements.txt (또는 pip3) 하면 module 저장
+# git에 올리고 https 주소 복사후 pythonanywhere dashboard에 console > bash > 리눅스 서버 들어감 > git clone 주소
+# pythonanywhere web tap에 들어가서 하나 만들기 (flask 말고 manual configuration)
+# 배포 후 code 부분에 파일 주소 (ex. web_portfo)
+# 다시 bash 가서
+# mkvirtualenv --python=/usr/bin/python3.6 my-virtualenv
+# pip install flask
+# workon my-virtualenv
+# cd 로 들어가서
+# pip install -r requirements.txt
