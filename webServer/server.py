@@ -74,9 +74,13 @@ def html_page(page_name):
 @app.route('/submit_form', methods=['POST', 'GET'])
 def submit_form():
     if request.method == 'POST':
-        data = request.form.to_dict()  # dictionary data type으로
-        write_to_file(data)
-        return redirect('/thanks.html')
+        try:
+            data = request.form.to_dict()  # dictionary data type으로
+            # write_to_file(data)
+            write_to_csv(data)
+            return redirect('/thanks.html')
+        except:
+            return 'did not save to database'
     else:
         return redirect('/contact.html')
 
@@ -90,8 +94,11 @@ def write_to_file(data):
 
 
 def write_to_csv(data):  # csv : comma separate value
-    with open('database.csv', mode='a') as database2:
+    with open('database.csv', newline='', mode='a') as database2:
         email = data['email']
         subject = data['subject']
         message = data['message']
-        csv_writer = csv.writer(database2, delimiter=',', quotechar='', quoting=csv.QUOTE_MINIMAL)
+        csv_writer = csv.writer(database2, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
+        csv_writer.writerow([email,subject,message])
+
+# pythonanywhere
