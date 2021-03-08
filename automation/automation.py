@@ -31,3 +31,5 @@ assert 'work' in output_message.text
 
 # chrome_browser.close()  #버그가 있는 경우가 있음
 chrome_browser.quit()  # 마찬가지로 버그가 있는 경우가 있음
+
+# wait 기능 있음, 너무 빠르면 block 당하므로 일정시간 대기
