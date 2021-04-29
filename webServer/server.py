@@ -86,6 +86,21 @@ def submit_form():
         return redirect('/contact.html')
 
 
+@app.route('/work04_submit', methods=['POST', 'GET'])
+def work04_submit():
+    if request.method == 'POST':
+        try:
+            data = request.form.to_dict()  # dictionary data type으로
+            if write_company(data):
+                return redirect('/work04_confirmed.html')
+            else:
+                return redirect('/work04_no.html')
+        except:
+            return 'did not save to database'
+    else:
+        return redirect('/work04.html')
+
+
 def write_to_file(data):
     with open('database.txt', mode='a') as database:
         email = data['email']
@@ -101,6 +116,19 @@ def write_to_csv(data):  # csv : comma separate value
         message = data['message']
         csv_writer = csv.writer(database2, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
         csv_writer.writerow([email, subject, message])
+
+
+def write_company(data):
+    with open('company.txt', mode='a') as database3:
+        company = data['company']
+        file = database3.write(f'\n{company}')
+
+        apply_company = []
+        if company.lower() in apply_company:
+            return True
+        else:
+            return False
+
 
 # pythonanywhere
 # python 파일만 넘기고 pip freeze > requirements.txt (또는 pip3) 하면 module 저장

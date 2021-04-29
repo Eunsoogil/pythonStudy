@@ -15,7 +15,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="./static/assets/apple-icon-180x180.png">
   <link href="./static/assets/favicon.ico" rel="icon">
 
-  <title>Title page</title>  
+  <title>길은수 포트폴리오</title>
 
 <link href="./static/main.3f6952e4.css" rel="stylesheet"></head>
 
@@ -45,10 +45,10 @@
 
 
           <ul class="nav navbar-nav navbar-right navbar-small visible-md visible-lg">
-            <li><a href="./work01.html" title="" class="active">001</a></li>
+            <li><a href="./work01.html" title="">001</a></li>
             <li><a href="./work02.html" title="">002</a></li>
             <li><a href="./work03.html" title="">003</a></li>
-            <li><a href="./work04.html" title="">004</a></li>
+            <li><a href="./work04.html" title="" class="active">004</a></li>
           </ul>
 
 
@@ -65,7 +65,7 @@
           <div class="text-center">
             <h1 class="h2">004 : 일룸 홈페이지 리뉴얼</h1>
           </div>
-          <p>가구 판매 업체인 일룸 홈페이지를 리뉴얼하는 작업을 진행하였습니다<br><br>기술스택 : Bootstrap, JQuery, JSP, Spring, Mybatis, mariaDb<br>배포 : cafe24</p>
+          <p class="work">가구 판매 업체인 일룸 홈페이지를 리뉴얼하는 작업을 진행하였습니다<br><br>기술스택 : Bootstrap, JQuery, JSP, Spring, Mybatis, mariaDb<br>배포 : cafe24</p>
           <div class="text-center">
             <a target="_blank" rel="noopener noreferrer" href="http://powerklkl.cafe24.com/user/main.do" class="btn btn-default linkButton">배포된 웹앱 바로가기</a>
           </div>
@@ -76,24 +76,41 @@
       
       <div class="col-md-8 col-md-offset-2 section-container-spacer">
         <blockquote>
-          <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante."</p>
-          <small class="pull-right">Irina Martin</small>
+          <p>"팀프로젝트이며, 팀장으로서 역할을 수행했습니다"</p>
+          <small class="pull-left">비즈니스 로직 설계, DB 설계</small><br>
+          <small class="pull-left">Spring MVC 패턴으로 환경구축</small><br>
+          <small class="pull-left">github에 배포하고 팀원들 초대 후 작업 분할</small><br>
+          <small class="pull-left">기능 구현 : 장바구니, 결제, 검색, 시리즈</small><br>
+          <small class="pull-left">팀원들의 결과물들을 하나로 병합하고 팀원들이 막히는 부분 해결</small>
         </blockquote>
-        <div class="row">
-          <div class="col-xs-12 col-md-6">
-            <img src="./static/assets/images/work001-02.jpg" class="img-responsive" alt="">
-            <p>Menphis skyline</p>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <img src="./static/assets/images/work001-03.jpg" class="img-responsive" alt="">
-            <p>Menphis skyline</p>
-          </div>
-        </div>
       </div>
 
-      <div class="col-xs-12">
-        <img src="./static/assets/images/work001-04.jpg" class="img-responsive" alt="">
+
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="section-container-spacer text-center">
+            <h1 class="h2">아이디/비밀번호가 필요합니다</h1>
+            <p class="work">이 프로젝트의 경우 회원가입은 저의 승인이 필요하고, 관리자 페이지는 관리자만 확인 가능합니다</p>
+            <p class="work">회사명을 적어주시면, 제가 지원한 회사에 한하여 관리자 아이디를 알려드리겠습니다</p>
+          </div>
+
+             <form action="work04_submit" method="post" class="reveal-content">
+               <div class="formWrap">
+                <div class="col-md-7 text-center">
+                  <div class="form-group">
+                    <input name="company" type="text" class="form-control" id="company" placeholder="company">
+                  </div>
+                  <button type="submit" class="btn btn-default btn-lg">Send</button>
+                </div>
+               </div>
+             </form>
+
+
+       </div>
       </div>
+    </div>
+
 
     </div>
   </div>

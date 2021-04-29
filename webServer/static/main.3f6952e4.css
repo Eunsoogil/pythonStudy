@@ -5152,4 +5152,13 @@ textarea {
     position:relative;
     z-index:10;
 }
+p.work {
+    font-size: 15px;
+}
+
+.formWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 /*# sourceMappingURL=main.70a66962.map*/
