@@ -79,3 +79,64 @@ else:
 movies = {"matrix", "green book", "her"}
 print("matrix" in movies)
 print("eclipse" in movies)
+
+friends = ['rolf', 'jen', 'bob', 'anne']
+
+for friend in friends:
+    print(f'{friend} is my friend')
+
+for i in range(4):
+    print(i)
+
+grade = [35, 50, 11, 60]
+total = sum(grade)
+amount = len(grade)
+print(total / amount)
+
+numbers = [1, 3, 5]
+doubled = [x * 2 for x in numbers]
+print(doubled)
+
+friends = ['rolf', 'jen', 'bob', 'anne', 'sam', 'samantha']
+starts_s = [friend for friend in friends if friend.startswith("s")]
+print(starts_s)
+
+friend_ages = {'rolf': 24, 'adam': 30, 'anne': 27}
+print(friend_ages['adam'])
+
+friends = [
+    {'name': 'rolf', 'age': 24},
+    {'name': 'adam', 'age': 30},
+    {'name': 'anne', 'age': 27}
+]
+
+print(friends[1]["name"])
+
+for friend in friend_ages:
+    print(f"{friend} : {friend_ages[friend]}")
+
+# better way
+for name, age in friend_ages.items():
+    print(name, age)
+
+total_age = friend_ages.values()
+print(sum(total_age) / len(total_age))
+
+print(list(friend_ages.items()))  # list 내의 tuple로 반환됨
+
+people = [('bob', 42, 'mechanic'), ('james', 24, 'artist'), ('harry', 32, 'lecturer')]
+for name, age, job in people:
+    print(name, age, job)
+
+# _는 신경쓰지 않는다는 이야기, 일종의 약속
+for name, age, _ in people:
+    print(name, age)
+
+# head에 첫번째것만, tail에 나머지 들어감
+head, *tail = [1, 2, 3, 4, 5]
+print(head)
+print(tail)
+
+*head, tail = [1, 2, 3, 4, 5]
+print(head)
+print(tail)
