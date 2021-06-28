@@ -141,3 +141,126 @@ print(tail)
 print(head)
 print(tail)
 
+
+def hello():
+    print("hello")
+
+
+hello()
+
+
+def user_age_in_seconds():
+    user_age = 32
+    age_seconds = user_age * 365 * 24 * 60 * 60
+    print(f"your age in senconds is {age_seconds}")
+
+
+user_age_in_seconds()
+
+friends = ['rolf', 'jen', 'bob', 'anne', 'sam', 'samantha']
+
+
+def add_friend():
+    friend_name = "jack"
+    # 잘 동작함
+    # friends.append(friend_name)
+
+    # 반드시 아래처럼 선언을 해줘야 한다
+    f = friends
+
+    # 선언 없이 사용 안되는 코드, x = x + 1 만 있으면 함수 내부에 x가 선언이 안되어 있다고 생각함
+    f = f + [friend_name]
+
+
+add_friend()
+print(friends)
+
+
+# y = default parameter
+def add(x, y=8):
+    return x + y
+
+
+print(add(3, 5))
+# 이런식으로 파라미터 지정 가능
+print(add(x=5, y=3))
+print(add(5))
+
+# 명명 가능
+addlambda = lambda a, b: a + b
+
+sequence = [1, 3, 5, 7]
+
+# map보다 빠르다
+doubled = [(lambda x: x * 2)(x) for x in sequence]
+print(doubled)
+doubled = list(map(lambda x: x * 2, sequence))
+print(doubled)
+
+users = [
+    (0, 'bob', 'password'),
+    (1, 'rolf', 'bob123'),
+    (2, 'jose', 'longjkopq'),
+    (3, 'username', '1234')
+]
+
+# username을 키 값으로
+username_mapping = {user[1]: user for user in users}
+print(username_mapping)
+
+
+# *args : 매개변수를 tuple로 저장
+def multiply(*args):
+    print(args)
+    totalmul = 1
+    for arg in args:
+        totalmul *= arg
+
+    return totalmul
+
+
+print(multiply(1, 3, 5))
+
+
+def check(x, y):
+    return x + y
+
+
+nums = [3, 5]
+# nums list의 값을 하나씩 넣는다 (unpacking)
+print(check(*nums))
+
+nums = {'x': 15, 'y': 25}
+# key의 이름과 함수 파라미터에 정의된 이름이 같을때 사용 가능
+print(check(**nums))
+
+
+def apply(*args, operator):
+    if operator == '*':
+        # unpacking이 필요하다, 하지 않으면 tuple을 넣기 때문에 튜플안의 튜플
+        return multiply(*args)
+    else:
+        return 'nono'
+
+
+print(apply(1, 3, 5, 7, operator='*'))
+
+
+def named(**kwargs):
+    # kwargs : dictionary return
+    print(kwargs)
+
+
+named(name="bob", age=25)
+
+details = {'check': 'checker', 'age': 11}
+
+named(**details)
+
+
+def both(*args, **kwargs):
+    print(args)
+    print(kwargs)
+
+
+both(1, 3, 5, name="bob", age=25)
