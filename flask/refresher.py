@@ -264,3 +264,58 @@ def both(*args, **kwargs):
 
 
 both(1, 3, 5, name="bob", age=25)
+
+
+class Student:
+    def __init__(self, name, grades):
+        self.name = name
+        self.grades = grades
+
+    def average(self):
+        return sum(self.grades) / len(self.grades)
+
+
+student = Student("bob", (90, 80, 70))
+print(student.name)
+print(student.grades)
+print(student.average())
+
+
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def __str__(self):
+        return f"Person {self.name}, {self.age} years old"
+
+    def __repr__(self):
+        return f"<Person({self.name}, {self.age})>"
+
+
+bob = Person("bob", 35)
+# 원래 주소값이 출력되지만, __str__때문에 __str__이 출력됨
+print(bob)
+
+
+class Store:
+    def __init__(self, name):
+        self.name = name
+        self.items = []
+
+    def add_item(self, name, price):
+        newItem = {'name': name, 'price': price}
+        self.items.append(newItem)
+
+    def stock_price(self):
+        sum = 0
+        for i in self.items:
+            sum += i['price']
+        return sum
+
+
+test = Store('test')
+
+test.add_item('test', 12)
+
+print(test.stock_price())
