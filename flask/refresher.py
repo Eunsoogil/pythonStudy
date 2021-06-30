@@ -319,3 +319,63 @@ test = Store('test')
 test.add_item('test', 12)
 
 print(test.stock_price())
+
+
+class ClassTest:
+    def instance_method(self):
+        print(f"{self}")
+
+    @classmethod
+    def class_method(cls):
+        print(f"{cls}")
+
+    @staticmethod
+    def static_method():
+        print("called static_method")
+
+
+# class 인스턴스를 호출하는 instance method, 인스턴스가 필요하다
+# 대부분 사용하는 흔한 메소드
+test = ClassTest()
+test.instance_method()
+ClassTest.instance_method(test)
+
+# 자기 자신을 호출하는데 인스턴스가 필요없다
+# factory pattern에서 사용
+ClassTest.class_method()
+
+# class내에 있지만 class와는 전혀 무관한 method
+ClassTest.static_method()
+
+
+class Book:
+    TYPES = ("hardcover", "paperback")
+
+    def __init__(self, name, book_type, weight):
+        self.name = name
+        self.book_type = book_type
+        self.weight = weight
+
+    def __repr__(self):
+        return f"<{self.name}, {self.book_type}, {self.weight}g>"
+
+    @classmethod
+    def hardcover(cls, name, page_weight):
+        # cls를 사용하는 것이 더 좋다 (확장성, 유연성 면에서)
+        # return Book(name, Book.TYPES[0], page_weight + 100)
+        return cls(name, cls.TYPES[0], page_weight + 100)
+
+    @classmethod
+    def paperback(cls, name, page_weight):
+        # return Book(name, Book.TYPES[1], page_weight - 100)
+        return cls(name, cls.TYPES[1], page_weight - 100)
+
+
+book = Book("Harry Potter", "hardcover", 1500)
+print(book)
+
+book2 = Book.hardcover("Harry Potter2", 1500)
+print(book2)
+
+book3 = Book.paperback("Harry Potter3", 1500)
+print(book3)
