@@ -379,3 +379,229 @@ print(book2)
 
 book3 = Book.paperback("Harry Potter3", 1500)
 print(book3)
+
+
+class Device:
+    def __init__(self, name, connected_by):
+        self.name = name
+        self.connected_by = connected_by
+        self.connected = True
+
+    def __str__(self):
+        return f"Device {self.name} ({self.connected_by})"
+
+    def disconnect(self):
+        self.connected = False
+        print("Disconnected")
+
+
+# 상속
+class Printer(Device):
+    def __init__(self, name, connected_by, capacity):
+        super().__init__(name, connected_by)
+        self.capacity = capacity
+        self.remaining_pages = capacity
+
+    def __str__(self):
+        return f"{super().__str__()} ({self.remaining_pages} page remaining)"
+
+    def print(self, pages):
+        if not self.connected:
+            print("your printer is not connected")
+            return
+        print("print {pages} pages")
+        self.remaining_pages -= pages
+
+
+printer = Printer("Printer", "USB", 500)
+printer.print(20)
+
+print(printer)
+
+printer.disconnect()
+
+
+# class composition
+# 연관관계이지만 별도의 class일때
+class BookShelf:
+    def __init__(self, *books):
+        self.books = books
+
+    def __str__(self):
+        return f"BookShelf with {len(self.books)} books"
+
+
+class Book2:
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return f"book {self.name}"
+
+
+book = Book2("Harry porter")
+book2 = Book2("Harry porter2")
+shelf = BookShelf(book, book2)
+
+print(shelf)
+
+
+# 힌트 기능, 타입이 잘못되면 IDE가 알려줌
+# from에 . 혹은 .. 같이 상대경로 입력 가능
+from typing import List
+
+
+# class의 경우 -> "클래스명" 으로 해야함
+def list_avg(sequence: List) -> float:
+    return sum(sequence) / len(sequence)
+
+
+# list_avg(123)
+
+# import to refresher2
+def divide(divided, divisor):
+    if divisor == 0:
+        # throw error, traceback 발생하며 stop
+        raise ZeroDivisionError("cannot be 0, zerodivisionerror")
+
+    return divided / divisor
+
+
+# first class function
+# operator에 사용할 메소드를 명시해줌으로써 사용 가능
+def calculate(*values, operator):
+    return operator(*values)
+
+
+result = calculate(20, 4, operator=divide)
+print(result)
+
+
+# traceback 발생하지 않음
+try:
+    # print(divide(15, 0))
+    print(divide(15, 3))
+except ZeroDivisionError as e:
+    print(e)
+    print("cannot be 0")
+else:
+    # exception 발생하지 않을 시 동작
+    print("no error")
+finally:
+    print("module done")
+
+
+class Book2:
+    def __init__(self, name: str, page_count: int):
+        self.name = name
+        self.page_count = page_count
+        self.pages_read = 0
+
+    def __repr__(self):
+        return f"<Book {self.name}, read {self.pages_read} pages out of {self.page_count}>"
+
+    def read(self, pages: int):
+        if self.pages_read + pages > self.page_count:
+            raise TooManyPagesError(
+                f"limitation of book pages is {self.page_count}"
+            )
+        self.pages_read += pages
+        print(f"you have now read {self.pages_read} pages put of {self.page_count}")
+
+
+# custom error
+class TooManyPagesError(ValueError):
+    pass
+
+
+python101 = Book2("Python 101", 50)
+
+try:
+    python101.read(35)
+    python101.read(50)
+except TooManyPagesError as e:
+    print(e)
+
+
+user = {"username": "jose", "access_level": "guest"}
+
+
+import functools
+
+
+# factory pattern
+def make_secure(access_level):
+    # 함수를 파라미터로 넣는다, decorator pattern
+    def decorator(func):
+
+        # 함수 내의 다른 함수 정의
+        # functool을 넣어 get_admin_password의 내용이 대채됨을 막는다
+        @functools.wraps(func)
+        def secure_function(*args, **kwargs):
+            if user["access_level"] == access_level:
+                # 받아온 함수 파라미터를 실행
+                return func(*args, **kwargs)
+            else:
+                return "no admin"
+
+        # 함수내 정의된 함수를 돌려준다
+        return secure_function
+
+    return decorator
+
+
+# 데코레이터를 넣어서 make_secure를 실행하게 한다
+@make_secure("admin")
+def get_admin_password():
+    return "1234"
+
+
+@ make_secure("guest")
+def get_name():
+    return "name"
+
+
+# 함수가 재정의된다
+# decorator를 넣으면 아래처럼 실행할 필요는 없다
+# get_admin_password = make_secure(get_admin_password)
+print(get_admin_password())
+print(get_name())
+
+# 함수가 overwrite되지 않음을 확인할 수 있음
+print(get_admin_password.__name__)
+
+# 파이썬은 몇가지를 제외하고 (string, integer, tuple..) 모두 mutable
+# 파이썬은 primitive type이 없고 모두 objcet이다
+
+# 주소값이 있음을 확인할 수 있다
+# 다만, immutable의 경우 이미 고유의 주소값이 있으며 수정할 수 없다(유일함)
+print(id(84626))
+
+
+from typing import Optional
+
+
+class MutableExample:
+    # list의 default를 mutable로 하면 같은 주소를 참조하는 list를 생성하므로
+    # 객체를 다르게 생성해도 같은 list를 참조한다
+    # def __init__(self, name: str, list: List[int] = []):
+    #     self.name = name
+    #     self.list = list
+
+    # 따라서 none를 활용하는게 좋다
+    # optional을 사용하면 더 확실하다
+    # 애초에 default를 mutable로 사용하는 것 자체가 좋지 않다(유일하지 않으므로 위처럼 같은 위치를 참고할 수 있다)
+    def __init__(self, name: str, list: Optional[List[int]] = None):
+        self.name = name
+        self.list = list or []
+
+    def set_list(self, value: int):
+        self.list.append(value)
+
+
+ex1 = MutableExample("ex1")
+ex2 = MutableExample("ex2")
+ex1.set_list(90)
+print(ex1.list)
+print(ex2.list)
+
